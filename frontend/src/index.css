@@ -1,68 +1,100 @@
+/* -------------------------- */
+/*       Global Variables     */
+/* -------------------------- */
+
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  --font-size-large: 24vw;
+  --line-height: 1.1;
+  --font-family: "Hind", serif;
+  --font-weight-light: 300;
+  --gradient: linear-gradient(90deg, #eef4eb, #d1e8c8);
+  --shadow-color: #00000006;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
+/* -------------------------- */
+/*       Base Text Style      */
+/* -------------------------- */
 
-body {
+.text {
+  font-size: var(--font-size-large);
+  line-height: var(--line-height);
+  font-family: var(--font-family);
+  font-weight: var(--font-weight-light);
+  font-style: normal;
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  padding: 0;
+  /* Instead of text-wrap (which isn’t standard), use: */
+  white-space: nowrap;
+  position: absolute;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+/* -------------------------- */
+/*       Component Styles     */
+/* -------------------------- */
+
+/* Gradient title with outline and shadow */
+.title {
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+
+  top: 12.2vw;
+  left: 8vw;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+.title-rim {
+  color: #a4bc9a6f;
+  top: 12.25vw;
+  left: 8.05vw;
+  z-index: -1;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+/* Fake text-shadow using ::after */
+.title::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  color: var(--shadow-color);
+  filter: blur(4px);
+  z-index: -1;
+}
+
+/* part of title */
+.of {
+  color: #ffffff99;
+  top: 32vw;
+  left: -8vw;
+}
+
+/* part of title with outline */
+.mind {
+  color: #ffffff;
+  top: 32vw;
+  left: 20vw;
+}
+
+.mind-rim {
+  color: #a4bc9a6f;
+  top: 31.95vw;
+  left: 19.95vw;
+}
+
+/* gradient background */
+.body {
+  background: var(--gradient);
+
+  width: 150vw;
+  height: 110vh;
+  
+  position: absolute;
+  top: 31vw;
+  left: 0;
+}
+
+/* container for box and title */
+.body-box {
+  position: relative;
+  display: inline-block;
 }
