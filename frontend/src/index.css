@@ -98,3 +98,34 @@
   position: relative;
   display: inline-block;
 }
+
+/* PoM logo */
+.icon {
+  width: 16vw;
+  
+  position: absolute;
+  top: 35vw;
+  right: 10vw;
+
+  z-index: 10;
+}
+
+.icon-rim-light {
+  width: 16vw;
+  
+  position: absolute;
+  top: 35.05vw;
+  right: 9.95vw;
+
+  z-index: 10;
+}
+
+.icon-rim-dark {
+  width: 16vw;
+  
+  position: absolute;
+  top: 34.95vw;
+  right: 10.05vw;
+
+  z-index: 10;
+}
