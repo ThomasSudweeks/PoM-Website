@@ -1,61 +1,77 @@
 import './App.css'
 import './index.css'
+import { useEffect } from 'react';
 
 function App() {
+
+  // Animate components on window entry
+  useEffect(() => {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    });
+
+    const elements = document.querySelectorAll('.scroll-trigger');
+    elements.forEach(el => observer.observe(el));
+
+    return () => {
+      elements.forEach(el => observer.unobserve(el)); // Cleanup observer on unmount
+    };
+  }, []);
+
+  // Trigger subtitle animation early if scrolled
+  useEffect(() => {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // If scroll-trigger becomes visible, remove subtitle's delay
+          const subtitle = document.querySelector('.subtitle') as HTMLElement;
+          if (subtitle) {
+            subtitle.style.animationDelay = '1s';
+          }
+        }
+      });
+    });
+    const scrollTrigger = document.querySelector('.scroll-trigger');
+    if (scrollTrigger) {
+      observer.observe(scrollTrigger);
+    }
+    return () => {
+      if (scrollTrigger) observer.unobserve(scrollTrigger);
+    };
+  }, []);
+
   return (
     <>
-      <a>
-        <img src="./pom-dark.svg" alt="PoM Logo" className="icon-rim-dark spin"></img>
-        <img src="./pom-white.svg" alt="PoM Logo" className="icon-rim-light spin"></img>
-        <img src="./pom-green.svg" alt="PoM Logo" className="icon spin"></img>
-      </a>
-      <div className="wrapper">
-        <p className="title text" data-text="Peace of Mind">Peace of Mind</p>
-        <p className="title-rim text">Peace of Mind</p>
-        <div className="body"></div>
+      {/* PoM Logo */}
+      <div className='logo-box no-select'>
+        <img src='./pom-dark.svg' className='icon rim-dark'></img>
+        <img src='./pom-white.svg' className='icon rim-light'></img>
+        <img src='./pom-green.svg' alt='PoM Logo' className='icon green'></img>
       </div>
-      <div className="mind-rim text">Mind</div>
-      <div className="mind text">Mind</div>
-      <div className="of text">of</div>
+      {/* Title Text */}
+      <div className='wrapper no-select'>
+        <p className='title text line-1' data-text='Peace of Mind'>Peace of Mind</p>
+        <p className='title-rim text line-1'>Peace of Mind</p>
+        <div className='body'></div>
+      </div>
+      <div className='no-select'>
+        <div className='mind-rim text line-2'>Mind</div>
+        <div className='mind text line-2'>Mind</div>
+        <div className='of text line-2'>of</div>
+      </div>
+      {/* About Us Paragraph */}
+      <div className='textbox'>
+        <h1 className='subtitle'>PoM. The Future of Personal Security</h1>
+        <p className='body-paragraph scroll-trigger'>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+      </div>
     </>
   )
 }
 
 export default App
-
-
-// import { useState } from 'react'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
-// import './App.css'
-
-// function App() {
-//   const [count, setCount] = useState(0)
-
-//   return (
-//     <>
-//       <div>
-//         <a href="https://vite.dev" target="_blank">
-//           <img src={viteLogo} className="logo" alt="Vite logo" />
-//         </a>
-//         <a href="https://react.dev" target="_blank">
-//           <img src={reactLogo} className="logo react" alt="React logo" />
-//         </a>
-//       </div>
-//       <h1>Vite + React</h1>
-//       <div className="card">
-//         <button onClick={() => setCount((count) => count + 1)}>
-//           count is {count}
-//         </button>
-//         <p>
-//           Edit <code>src/App.tsx</code> and save to test HMR
-//         </p>
-//       </div>
-//       <p className="read-the-docs">
-//         Click on the Vite and React logos to learn more
-//       </p>
-//     </>
-//   )
-// }
-
-// export default App
